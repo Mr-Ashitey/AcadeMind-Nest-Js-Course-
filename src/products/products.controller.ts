@@ -5,11 +5,11 @@ import { ProductsService } from './products.service';
 export class ProductsController {
   constructor(private readonly productService: ProductsService) {}
 
+  //   Add Products Controller
   @Post()
   addProducts(
     @Body() dto: { title: string; description: string; price: number },
   ) {
-    // console.log(dto);
     return this.productService.insertProduct(
       dto.title,
       dto.description,

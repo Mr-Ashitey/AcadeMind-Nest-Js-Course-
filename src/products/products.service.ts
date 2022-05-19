@@ -5,6 +5,7 @@ import { ProductModel } from './product.model';
 export class ProductsService {
   productModel: ProductModel[] = [];
 
+  // Add products Service
   insertProduct(title: string, descirption: string, price: number) {
     const prodId = Date.now().toString();
     const newProduct = new ProductModel(prodId, title, descirption, price);
