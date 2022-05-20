@@ -1,10 +1,15 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
-import { ProductModel } from './product.model';
+import { InjectModel } from '@nestjs/mongoose';
+import { Model } from 'mongoose';
+import { Product } from './product.model';
 
 @Injectable()
 export class ProductsService {
-  private productModel: ProductModel[] = [];
+  // private productModel: ProductModel[] = [];
 
+  constructor(
+    @InjectModel('Product') private readonly productModel: Model<Product>,
+  ) {} //injects the product mongoose model
   //   Get all products - service
   getAllProducts() {
     // return [...this.productModel]; we can do this to return a copy of the product model
@@ -21,9 +26,9 @@ export class ProductsService {
   // Add products - service
   insertProduct(title: string, descirption: string, price: number) {
     const prodId = Date.now().toString();
-    const newProduct = new ProductModel(prodId, title, descirption, price);
+    const newProduct = new this.productModel({ title, descirption, price });
 
-    this.productModel.push(newProduct);
+    // this.productModel.push(newProduct);
     return { id: prodId };
   }
 
