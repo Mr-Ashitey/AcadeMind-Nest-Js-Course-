@@ -12,9 +12,9 @@ export class ProductModel {
   //   }
 
   constructor(
-    private id: string,
-    private title: string,
-    private description: string,
-    private price: number,
+    public id: string,
+    public title: string,
+    public description: string,
+    public price: number,
   ) {}
 }
