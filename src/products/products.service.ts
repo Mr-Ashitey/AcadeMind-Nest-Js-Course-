@@ -13,11 +13,8 @@ export class ProductsService {
 
   //   Get single product - service
   getProduct(productId: string) {
-    const product = this.productModel.find((prod) => prod.id === productId);
+    const product = this.findProduct(productId)[0];
 
-    if (!product) {
-      throw new NotFoundException('Product not found');
-    }
     return { product };
   }
 
@@ -28,5 +25,48 @@ export class ProductsService {
 
     this.productModel.push(newProduct);
     return { id: prodId };
+  }
+
+  //  Update products - service
+  updateProduct(
+    productId: string,
+    title: string,
+    description: string,
+    price: number,
+  ) {
+    const [product, productIndex] = this.findProduct(productId);
+
+    const updatedProduct = new ProductModel(
+      productId,
+      title ? title : product.title,
+      description ? description : product.description,
+      price ? price : product.price,
+    );
+
+    this.productModel[productIndex] = updatedProduct;
+
+    return { id: productId, msg: 'Product Updated Successfully' };
+  }
+
+  // Delete products - service
+  deleteProduct(productId: string) {
+    const productIndex = this.findProduct(productId)[1];
+    this.productModel.splice(productIndex, 1);
+
+    return { msg: 'Product Deleted Successfully' };
+  }
+
+  // Private method to find products
+  private findProduct(productId: string): [ProductModel, number] {
+    const product = this.productModel.find((prod) => prod.id === productId);
+    const productIndex = this.productModel.findIndex(
+      (prod) => prod.id === productId,
+    );
+
+    if (!product || productIndex === -1) {
+      throw new NotFoundException('Product not found');
+    }
+
+    return [product, productIndex];
   }
 }
