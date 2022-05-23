@@ -15,8 +15,8 @@ export class ProductsController {
 
   //   Get All Products - controller
   @Get()
-  getAllProducts() {
-    return this.productService.getAllProducts();
+  async getAllProducts() {
+    return await this.productService.getAllProducts();
   }
 
   //  Get Single Product - controller
@@ -27,10 +27,10 @@ export class ProductsController {
 
   //   Add products - controller
   @Post()
-  addProducts(
+  async addProducts(
     @Body() dto: { title: string; description: string; price: number },
   ) {
-    return this.productService.insertProduct(
+    return await this.productService.insertProduct(
       dto.title,
       dto.description,
       dto.price,
