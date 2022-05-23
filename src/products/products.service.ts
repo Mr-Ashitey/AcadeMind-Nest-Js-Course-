@@ -1,11 +1,10 @@
 import {
   BadRequestException,
-  HttpException,
   Injectable,
   NotFoundException,
 } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
-import mongoose, { Model } from 'mongoose';
+import { Model } from 'mongoose';
 import { Product } from './product.model';
 
 @Injectable()
