@@ -27,9 +27,7 @@ export class ProductsController {
 
   //   Add products - controller
   @Post()
-  async addProducts(
-    @Body() dto: { title: string; description: string; price: number },
-  ) {
+  async addProducts(@Body() dto) {
     return await this.productService.insertProduct(
       dto.title,
       dto.description,
@@ -39,10 +37,7 @@ export class ProductsController {
 
   // Update products - controller
   @Patch(':id')
-  updateProduct(
-    @Param('id') prodId: string,
-    @Body() dto: { title: string; description: string; price: number },
-  ) {
+  updateProduct(@Param('id') prodId: string, @Body() dto) {
     return this.productService.updateProduct(
       prodId,
       dto.title,
